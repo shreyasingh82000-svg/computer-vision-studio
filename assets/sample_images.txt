@@ -1,0 +1,111 @@
+SAMPLE IMAGES FOR TESTING
+=========================
+
+This folder is intended for storing sample images to test the Computer Vision application.
+
+RECOMMENDED TEST IMAGES:
+------------------------
+
+1. LANDSCAPE PHOTO
+   - Type: Natural scenery, mountains, sky
+   - Purpose: Test color operations, contrast, blur
+   - Suggested resolution: 1920x1080 or similar
+
+2. PORTRAIT PHOTO
+   - Type: Human face or person
+   - Purpose: Test edge detection, sharpening
+   - Suggested resolution: 1024x768 or similar
+
+3. HIGH-CONTRAST IMAGE
+   - Type: Buildings, architecture, geometric shapes
+   - Purpose: Test edge detection algorithms (Sobel, Canny)
+   - Suggested resolution: 1280x720 or similar
+
+4. NOISY IMAGE
+   - Type: Image with visible noise or grain
+   - Purpose: Test median filter and Gaussian blur
+   - Suggested resolution: 800x600 or similar
+
+5. LOW-LIGHT IMAGE
+   - Type: Dark or under-exposed photo
+   - Purpose: Test brightness adjustment
+   - Suggested resolution: Any
+
+WHERE TO GET SAMPLE IMAGES:
+---------------------------
+
+Option 1: Use Your Own Photos
+- Use photos from your phone or camera
+- Any JPG, PNG, BMP, or TIFF format
+- Recommended size: Under 5MB for smooth performance
+
+Option 2: Free Stock Images
+- Unsplash.com (High-quality free photos)
+- Pexels.com (Free stock photos)
+- Pixabay.com (Free images and videos)
+
+Option 3: Computer Vision Datasets
+- USC-SIPI Image Database (classic test images)
+- BSDS500 (Berkeley Segmentation Dataset)
+- Standard test images: Lena, Cameraman, Peppers, etc.
+
+SUPPORTED FORMATS:
+------------------
+✓ JPG / JPEG
+✓ PNG
+✓ BMP
+✓ TIFF / TIF
+
+IMPORTANT NOTES:
+----------------
+- Keep image file sizes reasonable (< 10MB recommended)
+- Very large images may take longer to process
+- The application automatically resizes images for display
+- Original resolution is maintained in processing
+- Place your test images directly in this 'assets' folder
+
+TESTING WORKFLOW:
+-----------------
+1. Add 3-5 sample images to this folder
+2. Run the application: python main.py
+3. Click "Upload Image" and select an image from this folder
+4. Test each operation to see the effects
+5. Compare results with different types of images
+
+EXAMPLE TEST SEQUENCE:
+----------------------
+1. Upload a landscape photo
+2. Apply Gaussian Blur → observe smoothing
+3. Reset
+4. Apply Sobel Edge Detection → see edge detection
+5. Reset
+6. Increase brightness → see brightening effect
+7. Apply Contrast → enhance visibility
+8. Apply Sharpen → enhance details
+9. Save the result
+
+ACADEMIC DEMONSTRATION:
+-----------------------
+For your college viva or presentation, prepare:
+- 2-3 diverse sample images
+- Know what each operation does to each image type
+- Be ready to explain why certain operations work better on certain images
+- Have before/after comparisons ready
+
+Example Explanation:
+"I uploaded this landscape image with mountains and sky.
+When I applied Gaussian Blur with a 5x5 kernel, you can see the noise 
+is reduced and the image appears smoother because the filter performs 
+weighted averaging of neighboring pixels. The Sobel edge detection then 
+clearly identifies the mountain edges and horizon line by computing 
+gradients in both X and Y directions."
+
+TIPS FOR BEST RESULTS:
+----------------------
+- Start with high-quality, well-lit images
+- Avoid extremely small images (< 200x200)
+- Test edge detection on images with clear boundaries
+- Test noise filters on images with visible grain
+- Test brightness/contrast on varied lighting conditions
+
+Good luck with your Computer Vision project!
