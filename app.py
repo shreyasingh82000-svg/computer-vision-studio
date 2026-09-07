@@ -237,15 +237,42 @@ st.markdown("""
         box-shadow: 0 0 20px rgba(255, 0, 200, 0.4) !important;
     }
     
-    /* File Uploader */
+    /* File Uploader - Enhanced Visibility */
     .stFileUploader {
-        background: rgba(5, 5, 11, 0.6) !important;
-        border: 1px dashed rgba(0, 229, 255, 0.3) !important;
+        background: rgba(0, 229, 255, 0.05) !important;
+        border: 2px dashed rgba(0, 229, 255, 0.5) !important;
         border-radius: 0 !important;
+        padding: 2rem 1rem !important;
+    }
+    
+    .stFileUploader:hover {
+        background: rgba(0, 229, 255, 0.1) !important;
+        border-color: #00E5FF !important;
     }
     
     .stFileUploader label {
-        color: #A7A7BB !important;
+        color: #00E5FF !important;
+        font-family: 'Orbitron', sans-serif !important;
+        font-weight: 600 !important;
+        font-size: 0.9rem !important;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+    
+    .stFileUploader [data-testid="stFileUploaderDropzone"] {
+        background: rgba(5, 5, 11, 0.8) !important;
+        border: 2px dashed rgba(0, 229, 255, 0.3) !important;
+    }
+    
+    .stFileUploader [data-testid="stFileUploaderDropzone"]:hover {
+        border-color: #00E5FF !important;
+        background: rgba(0, 229, 255, 0.05) !important;
+    }
+    
+    .stFileUploader button {
+        background: rgba(0, 229, 255, 0.1) !important;
+        border: 1px solid #00E5FF !important;
+        color: #00E5FF !important;
         font-family: 'Orbitron', sans-serif !important;
     }
     
@@ -549,13 +576,22 @@ def main():
     
     # Sidebar
     with st.sidebar:
-        st.markdown("### 📁 File Operations")
+        st.markdown("""
+            <div style='background: rgba(0, 229, 255, 0.1); border: 2px solid #00E5FF; padding: 1rem; margin-bottom: 1.5rem; backdrop-filter: blur(12px);'>
+                <div style='color: #00E5FF; font-family: Orbitron, sans-serif; font-size: 0.9rem; text-align: center; letter-spacing: 2px; margin-bottom: 0.5rem;'>
+                    [ INPUT MODULE ]
+                </div>
+                <div style='color: #A7A7BB; font-size: 0.75rem; text-align: center; font-family: Orbitron, monospace;'>
+                    // UPLOAD IMAGE TO BEGIN
+                </div>
+            </div>
+        """, unsafe_allow_html=True)
         
         # Upload
         uploaded_file = st.file_uploader(
-            "Upload Image",
+            "◉ UPLOAD IMAGE",
             type=['jpg', 'jpeg', 'png', 'bmp', 'tiff'],
-            help="Upload an image to begin processing"
+            help="Upload an image to begin neural processing"
         )
         
         if uploaded_file is not None:
@@ -574,7 +610,11 @@ def main():
         st.markdown("---")
         
         # History controls
-        st.markdown("### ⏮️ History")
+        st.markdown("""
+            <div style='color: #FF00C8; font-family: Orbitron, sans-serif; font-size: 0.85rem; text-align: center; letter-spacing: 2px; margin: 1rem 0 0.5rem 0;'>
+                [ HISTORY CONTROL ]
+            </div>
+        """, unsafe_allow_html=True)
         col1, col2, col3 = st.columns(3)
         
         with col1:
@@ -596,7 +636,11 @@ def main():
         
         # Download
         if st.session_state.processed_image is not None:
-            st.markdown("### 💾 Download")
+            st.markdown("""
+                <div style='color: #FF00C8; font-family: Orbitron, sans-serif; font-size: 0.85rem; text-align: center; letter-spacing: 2px; margin: 1rem 0 0.5rem 0;'>
+                    [ DATA EXPORT ]
+                </div>
+            """, unsafe_allow_html=True)
             img_bytes = get_download_link(st.session_state.processed_image)
             if img_bytes:
                 st.download_button(
@@ -611,7 +655,11 @@ def main():
         
         # Image Info
         if st.session_state.processed_image is not None:
-            st.markdown("### ℹ️ Image Info")
+            st.markdown("""
+                <div style='color: #00E5FF; font-family: Orbitron, sans-serif; font-size: 0.85rem; text-align: center; letter-spacing: 2px; margin: 1rem 0 0.5rem 0;'>
+                    [ IMAGE DATA ]
+                </div>
+            """, unsafe_allow_html=True)
             info = ip.get_image_info(st.session_state.processed_image, 
                                      getattr(st.session_state, 'filename', 'Unknown'))
             
@@ -623,9 +671,13 @@ def main():
         st.markdown("---")
         
         # About
-        st.markdown("### � Team")
+        st.markdown("""
+            <div style='color: #FF00C8; font-family: Orbitron, sans-serif; font-size: 0.85rem; text-align: center; letter-spacing: 2px; margin: 1rem 0 0.5rem 0;'>
+                [ SYSTEM OPERATORS ]
+            </div>
+        """, unsafe_allow_html=True)
         team_text = "\n\n".join([
-            f"**{member['name']}**  \nPRN: {member['prn']}"
+            f"**{member['name']}**  \nID: {member['prn']}"
             for member in TEAM_INFO
         ])
         st.info(f"""
