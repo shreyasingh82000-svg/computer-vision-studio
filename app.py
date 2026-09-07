@@ -574,8 +574,36 @@ def main():
     # Header
     create_header()
     
+    # Back to Landing Button - Top of Main Content (for users who can't see sidebar)
+    st.markdown("""
+        <div style='text-align: center; margin: 1rem 0 2rem 0;'>
+            <a href='https://shreyasingh82000-svg.github.io/computer-vision-studio/' 
+               style='display: inline-block; background: linear-gradient(135deg, rgba(0, 229, 255, 0.2), rgba(255, 0, 200, 0.2)); 
+                      border: 2px solid #00E5FF; padding: 0.8rem 2rem; text-align: center; text-decoration: none; 
+                      color: #00E5FF; font-family: Orbitron, sans-serif; font-weight: 700; font-size: 1rem; 
+                      letter-spacing: 3px; border-radius: 4px; transition: all 0.3s ease;
+                      box-shadow: 0 0 30px rgba(0, 229, 255, 0.4);'>
+                ← BACK TO LANDING PAGE
+            </a>
+        </div>
+    """, unsafe_allow_html=True)
+    
     # Sidebar
     with st.sidebar:
+        # Back to Landing Page Button
+        st.markdown("""
+            <div style='margin-bottom: 1.5rem;'>
+                <a href='https://shreyasingh82000-svg.github.io/computer-vision-studio/' 
+                   style='display: block; background: linear-gradient(135deg, rgba(0, 229, 255, 0.2), rgba(255, 0, 200, 0.2)); 
+                          border: 2px solid #00E5FF; padding: 0.8rem; text-align: center; text-decoration: none; 
+                          color: #00E5FF; font-family: Orbitron, sans-serif; font-weight: 700; font-size: 0.9rem; 
+                          letter-spacing: 2px; border-radius: 4px; transition: all 0.3s ease;
+                          box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);'>
+                    ← BACK TO LANDING
+                </a>
+            </div>
+        """, unsafe_allow_html=True)
+        
         st.markdown("""
             <div style='background: rgba(0, 229, 255, 0.1); border: 2px solid #00E5FF; padding: 1rem; margin-bottom: 1.5rem; backdrop-filter: blur(12px);'>
                 <div style='color: #00E5FF; font-family: Orbitron, sans-serif; font-size: 0.9rem; text-align: center; letter-spacing: 2px; margin-bottom: 0.5rem;'>
