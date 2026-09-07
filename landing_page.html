@@ -7,7 +7,7 @@
     <meta name="description" content="Professional Computer Vision platform with 26+ image processing operations. Built with Python, OpenCV, and AI.">
     
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -20,62 +20,188 @@
         }
 
         :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --dark-bg: #0a0e27;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --text-primary: #ffffff;
-            --text-secondary: #a0aec0;
-            --accent: #667eea;
-            --accent-2: #764ba2;
+            /* Cyberpunk Color System */
+            --cyber-black: #020207;
+            --cyber-dark: #05050B;
+            --cyber-darker: #080811;
+            
+            --neon-magenta: #FF00C8;
+            --neon-pink: #FF2BD6;
+            --neon-cyan: #00E5FF;
+            --cyber-blue: #08F7FE;
+            --cyber-purple: #7A2CFF;
+            
+            --text-primary: #F5F5FF;
+            --text-secondary: #A7A7BB;
+            --text-muted: #66667A;
+            
+            /* Glows */
+            --glow-magenta: 0 0 10px rgba(255,0,200,0.5), 0 0 30px rgba(255,0,200,0.2);
+            --glow-cyan: 0 0 10px rgba(0,229,255,0.5), 0 0 30px rgba(0,229,255,0.2);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--dark-bg);
+            background: var(--cyber-black);
             color: var(--text-primary);
             overflow-x: hidden;
             line-height: 1.6;
         }
 
-        /* Animated Background */
-        .animated-bg {
+        /* Digital Background System */
+        .cyber-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            background: var(--cyber-black);
+            overflow: hidden;
         }
 
-        .animated-bg::before {
-            content: '';
+        /* Animated Grid */
+        .cyber-grid {
             position: absolute;
-            width: 200%;
-            height: 200%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
-            animation: float 20s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(-50px, -50px); }
-        }
-
-        /* Grid Pattern */
-        .grid-pattern {
-            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(102, 126, 234, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(102, 126, 234, 0.03) 1px, transparent 1px);
+                linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
-            z-index: -1;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Circuit Pattern */
+        .circuit-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            background-image: 
+                radial-gradient(circle at 20% 30%, var(--neon-cyan) 1px, transparent 1px),
+                radial-gradient(circle at 60% 70%, var(--neon-magenta) 1px, transparent 1px),
+                radial-gradient(circle at 80% 10%, var(--cyber-purple) 1px, transparent 1px);
+            background-size: 100px 100px, 150px 150px, 200px 200px;
+        }
+
+        /* Scanlines */
+        .scanlines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            animation: scanline 8s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100%); }
+        }
+
+        /* Binary Rain */
+        .binary-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            opacity: 0.05;
+        }
+
+        .binary-char {
+            position: absolute;
+            font-family: 'Orbitron', monospace;
+            font-size: 12px;
+            color: var(--neon-cyan);
+            animation: binaryFall 15s linear infinite;
+        }
+
+        @keyframes binaryFall {
+            0% { transform: translateY(-100%); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        /* Particle System */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: particleFloat 20s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translate(0, 0); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translate(var(--tx), var(--ty)); opacity: 0; }
+        }
+
+        /* Light Blooms */
+        .light-bloom {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.1;
+            animation: bloomPulse 10s ease-in-out infinite;
+        }
+
+        .bloom-magenta {
+            background: var(--neon-magenta);
+            top: 20%;
+            left: 10%;
+        }
+
+        .bloom-cyan {
+            background: var(--neon-cyan);
+            top: 60%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        @keyframes bloomPulse {
+            0%, 100% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(1.3); opacity: 0.15; }
         }
 
         /* Container */
@@ -83,18 +209,19 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            position: relative;
         }
 
-        /* Navigation */
+        /* Navigation - Futuristic HUD Style */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(10, 14, 39, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(2, 2, 7, 0.8);
+            backdrop-filter: blur(12px);
             z-index: 1000;
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+            padding: 18px 0;
+            border-bottom: 1px solid rgba(0, 229, 255, 0.15);
         }
 
         nav .container {
@@ -104,41 +231,93 @@
         }
 
         .logo {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 24px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
             font-weight: 700;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text-primary);
+            letter-spacing: 2px;
+            position: relative;
+            text-shadow: var(--glow-cyan);
+        }
+
+        .logo::before {
+            content: '◉';
+            color: var(--neon-cyan);
+            margin-right: 8px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 40px;
             list-style: none;
+        }
+
+        .nav-links li {
+            position: relative;
         }
 
         .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: all 0.3s;
             font-weight: 500;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .nav-links a::before {
+            content: attr(data-index) ' / ';
+            color: var(--neon-cyan);
+            font-size: 10px;
+            margin-right: 4px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover::before {
+            opacity: 1;
         }
 
         .nav-links a:hover {
-            color: var(--accent);
+            color: var(--neon-cyan);
+            text-shadow: var(--glow-cyan);
         }
 
-        /* Hero Section */
+        /* Hero Section - Cinematic AI Interface */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 100px 0;
+            padding: 120px 0 80px;
             position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 0, 200, 0.1) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            animation: heroGlow 8s ease-in-out infinite;
+        }
+
+        @keyframes heroGlow {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
         }
 
         .hero-content {
@@ -149,42 +328,69 @@
         .hero-badge {
             display: inline-block;
             padding: 8px 20px;
-            background: rgba(102, 126, 234, 0.1);
-            border: 1px solid rgba(102, 126, 234, 0.3);
+            background: rgba(0, 229, 255, 0.05);
+            border: 1px solid rgba(0, 229, 255, 0.3);
             border-radius: 50px;
-            font-size: 14px;
-            color: var(--accent);
-            margin-bottom: 20px;
+            font-size: 12px;
+            color: var(--neon-cyan);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             animation: fadeInDown 1s ease;
         }
 
+        .hero-badge::before {
+            content: '// ';
+            color: var(--neon-magenta);
+        }
+
         .hero h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 64px;
-            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 72px;
+            font-weight: 900;
             margin-bottom: 20px;
-            background: var(--primary-gradient);
+            background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-magenta) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: fadeInUp 1s ease 0.2s both;
+            animation: fadeInUp 1s ease 0.2s both, glitchText 5s ease-in-out infinite;
+            letter-spacing: -2px;
+            text-shadow: 0 0 30px rgba(0, 229, 255, 0.3);
+            position: relative;
+        }
+
+        @keyframes glitchText {
+            0%, 90%, 100% { transform: translate(0); }
+            92% { transform: translate(-2px, 2px); }
+            94% { transform: translate(2px, -2px); }
+            96% { transform: translate(-2px, 2px); }
         }
 
         .hero-subtitle {
-            font-size: 24px;
+            font-size: 20px;
             color: var(--text-secondary);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             animation: fadeInUp 1s ease 0.4s both;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 300;
         }
 
         .hero-description {
-            font-size: 18px;
+            font-size: 16px;
             color: var(--text-secondary);
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
             animation: fadeInUp 1s ease 0.6s both;
+            line-height: 1.8;
+        }
+
+        .hero-description::before {
+            content: '> ';
+            color: var(--neon-cyan);
+            font-family: 'Orbitron', monospace;
         }
 
         .btn-group {
@@ -194,158 +400,293 @@
             animation: fadeInUp 1s ease 0.8s both;
         }
 
+        /* Primary CTA - System Control */
         .btn {
-            padding: 15px 40px;
+            padding: 18px 45px;
             border: none;
-            border-radius: 50px;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             text-decoration: none;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Orbitron', sans-serif;
         }
 
         .btn-primary {
-            background: var(--primary-gradient);
-            color: white;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            background: var(--cyber-black);
+            color: var(--neon-magenta);
+            border: 2px solid var(--neon-magenta);
+            box-shadow: 0 0 20px rgba(255, 0, 200, 0.3),
+                        inset 0 0 20px rgba(255, 0, 200, 0.05);
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 200, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
         }
 
         .btn-primary:hover {
+            background: rgba(255, 0, 200, 0.1);
+            box-shadow: 0 0 30px rgba(255, 0, 200, 0.5),
+                        0 0 60px rgba(255, 0, 200, 0.3),
+                        inset 0 0 30px rgba(255, 0, 200, 0.1);
             transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary i {
+            transition: transform 0.3s;
+        }
+
+        .btn-primary:hover i {
+            transform: translateX(5px);
         }
 
         .btn-secondary {
             background: transparent;
-            border: 2px solid var(--accent);
-            color: var(--accent);
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
         }
 
         .btn-secondary:hover {
-            background: rgba(102, 126, 234, 0.1);
+            background: rgba(0, 229, 255, 0.05);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
         }
 
         /* Sections */
         section {
-            padding: 100px 0;
+            padding: 120px 0;
             position: relative;
+        }
+
+        /* Section Divider */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                var(--neon-cyan) 20%, 
+                var(--neon-magenta) 50%, 
+                var(--neon-cyan) 80%, 
+                transparent 100%
+            );
+            opacity: 0.3;
+            margin: 80px 0;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 80px;
         }
 
         .section-badge {
             display: inline-block;
             padding: 6px 16px;
-            background: rgba(102, 126, 234, 0.1);
-            border: 1px solid rgba(102, 126, 234, 0.3);
+            background: rgba(255, 0, 200, 0.05);
+            border: 1px solid rgba(255, 0, 200, 0.3);
             border-radius: 50px;
-            font-size: 14px;
-            color: var(--accent);
-            margin-bottom: 15px;
+            font-size: 11px;
+            color: var(--neon-magenta);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-badge::before {
+            content: '[ ';
+            color: var(--neon-cyan);
+        }
+
+        .section-badge::after {
+            content: ' ]';
+            color: var(--neon-cyan);
         }
 
         .section-title {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Orbitron', sans-serif;
             font-size: 48px;
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            letter-spacing: -1px;
+            text-shadow: var(--glow-magenta);
         }
 
         .section-description {
-            font-size: 18px;
+            font-size: 16px;
             color: var(--text-secondary);
             max-width: 700px;
             margin: 0 auto;
+            line-height: 1.8;
         }
 
-        /* About Section */
+        /* System Overview (About) */
         .about-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 30px;
-            margin-top: 50px;
         }
 
         .about-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(102, 126, 234, 0.1);
-            border-radius: 20px;
+            background: rgba(5, 5, 11, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 229, 255, 0.15);
             padding: 40px;
             transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .about-card:hover::before {
+            transform: scaleX(1);
         }
 
         .about-card:hover {
             transform: translateY(-10px);
-            border-color: rgba(102, 126, 234, 0.3);
-            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 10px 40px rgba(0, 229, 255, 0.2),
+                        inset 0 0 20px rgba(0, 229, 255, 0.05);
         }
 
         .about-icon {
             width: 60px;
             height: 60px;
-            background: var(--primary-gradient);
-            border-radius: 15px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 28px;
             margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(255, 0, 200, 0.3);
         }
 
         .about-card h3 {
-            font-size: 22px;
-            margin-bottom: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .about-card h3::before {
+            content: '[ ';
+            color: var(--neon-magenta);
+        }
+
+        .about-card h3::after {
+            content: ' ]';
+            color: var(--neon-magenta);
         }
 
         .about-card p {
             color: var(--text-secondary);
             line-height: 1.8;
+            font-size: 14px;
         }
 
-        /* How It Works */
+        /* Process Pipeline (How It Works) */
         .steps {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
+            gap: 20px;
             position: relative;
+        }
+
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 12.5%;
+            right: 12.5%;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                var(--neon-cyan) 0%, 
+                var(--neon-magenta) 50%, 
+                var(--neon-cyan) 100%
+            );
+            z-index: 0;
         }
 
         .step {
             text-align: center;
             position: relative;
+            z-index: 1;
         }
 
         .step-number {
             width: 80px;
             height: 80px;
-            background: var(--primary-gradient);
+            background: var(--cyber-black);
+            border: 2px solid var(--neon-cyan);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 700;
-            margin: 0 auto 20px;
+            font-family: 'Orbitron', sans-serif;
+            margin: 0 auto 25px;
             position: relative;
             z-index: 1;
+            color: var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.4),
+                        inset 0 0 20px rgba(0, 229, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .step:hover .step-number {
+            background: rgba(0, 229, 255, 0.1);
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.6),
+                        inset 0 0 30px rgba(0, 229, 255, 0.2);
+            transform: scale(1.1);
         }
 
         .step h3 {
-            font-size: 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
             margin-bottom: 10px;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .step p {
             color: var(--text-secondary);
+            font-size: 13px;
+            line-height: 1.6;
         }
 
-        /* Features Grid */
+        /* Holographic Feature Modules */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -353,91 +694,170 @@
         }
 
         .feature-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(102, 126, 234, 0.1);
-            border-radius: 20px;
-            padding: 30px;
+            background: rgba(5, 5, 11, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(122, 44, 255, 0.2);
+            padding: 35px;
             transition: all 0.3s;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg 270deg,
+                var(--neon-cyan) 270deg 360deg
+            );
+            opacity: 0;
+            transition: opacity 0.3s;
+            animation: featureRotate 4s linear infinite;
+        }
+
+        @keyframes featureRotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .feature-card:hover::before {
+            opacity: 0.3;
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            background: rgba(5, 5, 11, 0.9);
+            z-index: 0;
+        }
+
+        .feature-card > * {
+            position: relative;
+            z-index: 1;
         }
 
         .feature-card:hover {
             transform: translateY(-10px);
-            border-color: var(--accent);
-            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 15px 40px rgba(0, 229, 255, 0.2);
         }
 
         .feature-icon {
-            font-size: 40px;
+            font-size: 36px;
             margin-bottom: 20px;
-            background: var(--primary-gradient);
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
         .feature-card h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .feature-card p {
             color: var(--text-secondary);
-            font-size: 14px;
-            line-height: 1.6;
+            font-size: 13px;
+            line-height: 1.7;
+            margin-bottom: 15px;
         }
 
         .feature-count {
             display: inline-block;
-            background: rgba(102, 126, 234, 0.2);
+            background: rgba(0, 229, 255, 0.1);
             padding: 4px 12px;
             border-radius: 50px;
-            font-size: 12px;
-            color: var(--accent);
-            margin-top: 10px;
+            font-size: 11px;
+            color: var(--neon-cyan);
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        /* Tech Stack */
+        .feature-count::before {
+            content: '// ';
+        }
+
+        /* Technology Matrix */
         .tech-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
+            gap: 25px;
             max-width: 900px;
             margin: 0 auto;
         }
 
         .tech-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(102, 126, 234, 0.1);
-            border-radius: 15px;
+            background: rgba(5, 5, 11, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 0, 200, 0.15);
             padding: 30px 20px;
             text-align: center;
             transition: all 0.3s;
+            position: relative;
+        }
+
+        .tech-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .tech-card:hover::before {
+            transform: scaleX(1);
         }
 
         .tech-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
+            transform: translateY(-8px);
+            border-color: var(--neon-magenta);
+            box-shadow: 0 10px 30px rgba(255, 0, 200, 0.3);
         }
 
         .tech-icon {
-            font-size: 48px;
+            font-size: 44px;
             margin-bottom: 15px;
         }
 
         .tech-name {
             font-weight: 600;
             margin-bottom: 5px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            letter-spacing: 1px;
         }
 
         .tech-version {
-            font-size: 12px;
-            color: var(--text-secondary);
+            font-size: 11px;
+            color: var(--text-muted);
+            font-family: 'Orbitron', monospace;
         }
 
-        /* Statistics */
+        .tech-version::before {
+            content: 'v';
+            color: var(--neon-cyan);
+        }
+
+        /* System Metrics */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -445,36 +865,59 @@
         }
 
         .stat-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(102, 126, 234, 0.1);
-            border-radius: 20px;
-            padding: 40px;
+            background: rgba(5, 5, 11, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 229, 255, 0.15);
+            padding: 45px 30px;
             text-align: center;
             transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(0, 229, 255, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
         }
 
         .stat-card:hover {
             transform: translateY(-10px);
-            border-color: var(--accent);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 15px 40px rgba(0, 229, 255, 0.3);
         }
 
         .stat-number {
-            font-size: 48px;
-            font-weight: 700;
-            background: var(--primary-gradient);
+            font-size: 52px;
+            font-weight: 900;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
         }
 
         .stat-label {
             color: var(--text-secondary);
-            font-size: 16px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Orbitron', sans-serif;
         }
 
-        /* Team */
+        /* Team/Operators */
         .team-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -482,69 +925,177 @@
         }
 
         .team-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(102, 126, 234, 0.1);
-            border-radius: 20px;
-            padding: 30px;
+            background: rgba(5, 5, 11, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(122, 44, 255, 0.15);
+            padding: 35px 25px;
             text-align: center;
             transition: all 0.3s;
+            position: relative;
+        }
+
+        .team-card::after {
+            content: '[ SYSTEM OPERATOR ]';
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 9px;
+            color: var(--neon-cyan);
+            font-family: 'Orbitron', monospace;
+            letter-spacing: 1px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .team-card:hover::after {
+            opacity: 1;
         }
 
         .team-card:hover {
             transform: translateY(-10px);
-            border-color: var(--accent);
+            border-color: var(--neon-magenta);
+            box-shadow: 0 15px 40px rgba(255, 0, 200, 0.3);
         }
 
         .team-avatar {
             width: 100px;
             height: 100px;
-            background: var(--primary-gradient);
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 40px;
-            margin: 0 auto 20px;
+            margin: 25px auto 25px;
+            box-shadow: 0 10px 30px rgba(0, 229, 255, 0.4),
+                        inset 0 0 20px rgba(255, 0, 200, 0.3);
+            position: relative;
+        }
+
+        .team-avatar::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 1px solid var(--neon-cyan);
+            border-radius: 50%;
+            animation: avatarPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes avatarPulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
         }
 
         .team-name {
-            font-size: 18px;
+            font-size: 15px;
             font-weight: 600;
             margin-bottom: 10px;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.5px;
         }
 
         .team-prn {
-            color: var(--text-secondary);
-            font-size: 14px;
+            color: var(--text-muted);
+            font-size: 12px;
+            font-family: 'Orbitron', monospace;
         }
 
-        /* CTA Section */
+        .team-prn::before {
+            content: 'ID: ';
+            color: var(--neon-cyan);
+        }
+
+        /* Final CTA - System Initialization */
         .cta-section {
-            background: var(--primary-gradient);
-            border-radius: 30px;
+            background: rgba(5, 5, 11, 0.8);
+            border: 2px solid;
+            border-image: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta)) 1;
             padding: 80px;
             text-align: center;
             margin: 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(0, 229, 255, 0.1), 
+                transparent
+            );
+            animation: ctaScan 3s linear infinite;
+        }
+
+        @keyframes ctaScan {
+            0% { left: -100%; }
+            100% { left: 100%; }
         }
 
         .cta-section h2 {
-            font-size: 48px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 42px;
             margin-bottom: 20px;
+            color: var(--text-primary);
+            text-shadow: var(--glow-cyan);
+            position: relative;
+            z-index: 1;
         }
 
         .cta-section p {
-            font-size: 20px;
+            font-size: 18px;
             margin-bottom: 40px;
-            opacity: 0.9;
+            color: var(--text-secondary);
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section .btn-primary {
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+            color: var(--cyber-black);
+            border: none;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section .btn-primary:hover {
+            box-shadow: 0 0 40px rgba(0, 229, 255, 0.6),
+                        0 0 80px rgba(255, 0, 200, 0.4);
         }
 
         /* Footer */
         footer {
-            background: rgba(10, 14, 39, 0.95);
-            border-top: 1px solid rgba(102, 126, 234, 0.1);
+            background: rgba(2, 2, 7, 0.95);
+            border-top: 1px solid rgba(0, 229, 255, 0.15);
             padding: 60px 0 30px;
             margin-top: 100px;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--neon-cyan), 
+                var(--neon-magenta), 
+                var(--neon-cyan), 
+                transparent
+            );
         }
 
         .footer-content {
@@ -555,18 +1106,27 @@
         }
 
         .footer-brand h3 {
-            font-size: 24px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
             margin-bottom: 15px;
+            color: var(--text-primary);
+            text-shadow: var(--glow-cyan);
         }
 
         .footer-brand p {
             color: var(--text-secondary);
             margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.7;
         }
 
         .footer-links h4 {
             margin-bottom: 20px;
-            font-size: 18px;
+            font-size: 14px;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .footer-links ul {
@@ -578,18 +1138,36 @@
             text-decoration: none;
             display: block;
             margin-bottom: 10px;
-            transition: color 0.3s;
+            transition: all 0.3s;
+            font-size: 13px;
+        }
+
+        .footer-links a::before {
+            content: '> ';
+            color: var(--neon-cyan);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover::before {
+            opacity: 1;
         }
 
         .footer-links a:hover {
-            color: var(--accent);
+            color: var(--neon-cyan);
+            padding-left: 10px;
         }
 
         .footer-bottom {
-            border-top: 1px solid rgba(102, 126, 234, 0.1);
+            border-top: 1px solid rgba(0, 229, 255, 0.1);
             padding-top: 30px;
             text-align: center;
-            color: var(--text-secondary);
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .footer-bottom p {
+            font-family: 'Orbitron', monospace;
         }
 
         /* Animations */
@@ -647,6 +1225,15 @@
             .footer-content {
                 grid-template-columns: 1fr;
             }
+
+            .nav-links {
+                gap: 20px;
+                font-size: 12px;
+            }
+
+            .cta-section {
+                padding: 50px 30px;
+            }
         }
 
         @media (max-width: 640px) {
@@ -656,6 +1243,7 @@
 
             .btn-group {
                 flex-direction: column;
+                align-items: stretch;
             }
 
             .about-grid,
@@ -673,59 +1261,74 @@
             .cta-section {
                 padding: 40px 20px;
             }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .steps::before {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Animated Background -->
-    <div class="animated-bg"></div>
-    <div class="grid-pattern"></div>
+    <!-- Cyberpunk Background System -->
+    <div class="cyber-bg">
+        <div class="cyber-grid"></div>
+        <div class="circuit-pattern"></div>
+        <div class="scanlines"></div>
+        <div class="binary-rain" id="binaryRain"></div>
+        <div class="particles" id="particles"></div>
+        <div class="light-bloom bloom-magenta"></div>
+        <div class="light-bloom bloom-cyan"></div>
+    </div>
 
-    <!-- Navigation -->
+    <!-- Navigation - HUD Style -->
     <nav>
         <div class="container">
-            <div class="logo">CV Studio</div>
+            <div class="logo">CV STUDIO</div>
             <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#tech">Technology</a></li>
-                <li><a href="#team">Team</a></li>
-                <li><a href="https://github.com/shreyasingh82000-svg/computer-vision-studio" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+                <li><a href="#about" data-index="01">About</a></li>
+                <li><a href="#features" data-index="02">Features</a></li>
+                <li><a href="#tech" data-index="03">Technology</a></li>
+                <li><a href="#team" data-index="04">Team</a></li>
+                <li><a href="https://github.com/shreyasingh82000-svg/computer-vision-studio" target="_blank" data-index="05"><i class="fab fa-github"></i> GitHub</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section - AI Interface -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <div class="hero-badge">🚀 TE AIML Project 2026-27</div>
-                <h1>Computer Vision Studio</h1>
-                <p class="hero-subtitle">Image Enhancement & Edge Detection Platform</p>
+                <div class="hero-badge">TE AIML NEURAL PROJECT 2026-27</div>
+                <h1>COMPUTER VISION STUDIO</h1>
+                <p class="hero-subtitle">Image Enhancement & Edge Detection</p>
                 <p class="hero-description">
-                    Professional AI-powered image processing platform with 26+ advanced computer vision operations. 
-                    Built with Python, OpenCV, and cutting-edge algorithms.
+                    Advanced AI-powered image processing platform with 26+ neural vision operations. 
+                    Built with Python, OpenCV, and cutting-edge algorithms for digital intelligence.
                 </p>
                 <div class="btn-group">
                     <a href="https://computer-vision-studio.streamlit.app" target="_blank" class="btn btn-primary">
-                        <i class="fas fa-rocket"></i> Launch Project
+                        <span>◉</span> LAUNCH SYSTEM <i class="fas fa-arrow-right"></i>
                     </a>
                     <a href="#about" class="btn btn-secondary">
-                        <i class="fas fa-arrow-down"></i> Explore More
+                        EXPLORE CORE <i class="fas fa-arrow-down"></i>
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
+    <!-- System Overview -->
     <section id="about" class="scroll-reveal">
         <div class="container">
             <div class="section-header">
-                <div class="section-badge">About Project</div>
+                <div class="section-badge">SYSTEM OVERVIEW</div>
                 <h2 class="section-title">Why Computer Vision Studio?</h2>
                 <p class="section-description">
-                    Making professional image processing accessible, educational, and powerful for everyone
+                    Advanced neural processing architecture designed for next-generation image intelligence
                 </p>
             </div>
 
@@ -734,68 +1337,72 @@
                     <div class="about-icon">
                         <i class="fas fa-bullseye"></i>
                     </div>
-                    <h3>Problem We Solve</h3>
+                    <h3>Problem</h3>
                     <p>Traditional image processing tools are either too complex for beginners or too limited in functionality. We bridge this gap with an intuitive yet powerful platform.</p>
                 </div>
                 <div class="about-card">
                     <div class="about-icon">
                         <i class="fas fa-lightbulb"></i>
                     </div>
-                    <h3>Our Solution</h3>
+                    <h3>Intelligence</h3>
                     <p>A free, web-based platform combining professional-grade CV algorithms with beginner-friendly interface and real-time processing capabilities.</p>
                 </div>
                 <div class="about-card">
                     <div class="about-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
-                    <h3>Impact Created</h3>
+                    <h3>Impact</h3>
                     <p>Democratizing computer vision education and providing accessible tools for students, researchers, and professionals worldwide.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- How It Works -->
+    <div class="section-divider"></div>
+
+    <!-- Process Pipeline -->
     <section id="how" class="scroll-reveal">
         <div class="container">
             <div class="section-header">
-                <div class="section-badge">Simple Process</div>
-                <h2 class="section-title">How It Works</h2>
-                <p class="section-description">Get started in seconds with our intuitive 4-step process</p>
+                <div class="section-badge">NEURAL PIPELINE</div>
+                <h2 class="section-title">System Process Flow</h2>
+                <p class="section-description">Advanced 4-stage intelligent processing architecture</p>
             </div>
 
             <div class="steps">
                 <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Upload Image</h3>
-                    <p>Drag & drop or select your image (JPG, PNG, BMP, TIFF)</p>
+                    <div class="step-number">01</div>
+                    <h3>INPUT</h3>
+                    <p>Upload image data (JPG, PNG, BMP, TIFF)</p>
                 </div>
                 <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Choose Operation</h3>
-                    <p>Select from 26+ CV operations organized in 6 tabs</p>
+                    <div class="step-number">02</div>
+                    <h3>PROCESS</h3>
+                    <p>Select neural operation from 26+ algorithms</p>
                 </div>
                 <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Process & Preview</h3>
-                    <p>See real-time results with side-by-side comparison</p>
+                    <div class="step-number">03</div>
+                    <h3>ANALYSIS</h3>
+                    <p>Real-time processing with visual comparison</p>
                 </div>
                 <div class="step">
-                    <div class="step-number">4</div>
-                    <h3>Download Result</h3>
-                    <p>Export your processed image in high quality</p>
+                    <div class="step-number">04</div>
+                    <h3>OUTPUT</h3>
+                    <p>Export enhanced result in high quality</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
+    <div class="section-divider"></div>
+
+    <!-- Feature Modules -->
     <section id="features" class="scroll-reveal">
         <div class="container">
             <div class="section-header">
-                <div class="section-badge">Powerful Features</div>
-                <h2 class="section-title">26+ Computer Vision Operations</h2>
-                <p class="section-description">Comprehensive toolkit for all your image processing needs</p>
+                <div class="section-badge">CORE MODULES</div>
+                <h2 class="section-title">26+ Neural Vision Operations</h2>
+                <p class="section-description">Comprehensive algorithmic toolkit for advanced image intelligence</p>
             </div>
 
             <div class="features-grid">
@@ -805,7 +1412,7 @@
                     </div>
                     <h3>Basic Operations</h3>
                     <p>Grayscale conversion, brightness, contrast, histogram equalization, inversion, and visualization</p>
-                    <span class="feature-count">6 operations</span>
+                    <span class="feature-count">06 operations</span>
                 </div>
 
                 <div class="feature-card">
@@ -814,7 +1421,7 @@
                     </div>
                     <h3>Advanced Filters</h3>
                     <p>Gaussian blur, median filter, sharpening, and edge-preserving bilateral filtering</p>
-                    <span class="feature-count">4 operations</span>
+                    <span class="feature-count">04 operations</span>
                 </div>
 
                 <div class="feature-card">
@@ -823,7 +1430,7 @@
                     </div>
                     <h3>Edge Detection</h3>
                     <p>Sobel, Canny, and Laplacian algorithms with adjustable parameters</p>
-                    <span class="feature-count">3 operations</span>
+                    <span class="feature-count">03 operations</span>
                 </div>
 
                 <div class="feature-card">
@@ -832,7 +1439,7 @@
                     </div>
                     <h3>Thresholding</h3>
                     <p>Binary and adaptive thresholding for segmentation tasks</p>
-                    <span class="feature-count">2 operations</span>
+                    <span class="feature-count">02 operations</span>
                 </div>
 
                 <div class="feature-card">
@@ -841,7 +1448,7 @@
                     </div>
                     <h3>Morphological Ops</h3>
                     <p>Erosion, dilation, opening, and closing with multiple kernel sizes</p>
-                    <span class="feature-count">4 operations</span>
+                    <span class="feature-count">04 operations</span>
                 </div>
 
                 <div class="feature-card">
@@ -850,46 +1457,48 @@
                     </div>
                     <h3>Transformations</h3>
                     <p>Image rotation (90°, 180°, 270°, custom) and horizontal/vertical flipping</p>
-                    <span class="feature-count">2 operations</span>
+                    <span class="feature-count">02 operations</span>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-undo"></i>
                     </div>
-                    <h3>Undo/Redo System</h3>
-                    <p>20-level history for non-destructive editing and experimentation</p>
-                    <span class="feature-count">Advanced</span>
+                    <h3>History System</h3>
+                    <p>20-level undo/redo for non-destructive editing and experimentation</p>
+                    <span class="feature-count">ADVANCED</span>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-chart-bar"></i>
                     </div>
-                    <h3>Histogram Analysis</h3>
+                    <h3>Neural Analysis</h3>
                     <p>Real-time RGB and grayscale histogram visualization with Matplotlib</p>
-                    <span class="feature-count">Analytics</span>
+                    <span class="feature-count">ANALYTICS</span>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-download"></i>
                     </div>
-                    <h3>Export & Save</h3>
+                    <h3>Data Export</h3>
                     <p>Download processed images in high-quality PNG format</p>
-                    <span class="feature-count">Essential</span>
+                    <span class="feature-count">ESSENTIAL</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Tech Stack -->
+    <div class="section-divider"></div>
+
+    <!-- Technology Matrix -->
     <section id="tech" class="scroll-reveal">
         <div class="container">
             <div class="section-header">
-                <div class="section-badge">Technology</div>
-                <h2 class="section-title">Built with Modern Tech Stack</h2>
-                <p class="section-description">Leveraging industry-standard tools and frameworks</p>
+                <div class="section-badge">TECHNOLOGY MATRIX</div>
+                <h2 class="section-title">Neural Architecture Stack</h2>
+                <p class="section-description">Built with industry-standard frameworks and libraries</p>
             </div>
 
             <div class="tech-grid">
@@ -927,41 +1536,45 @@
         </div>
     </section>
 
-    <!-- Statistics -->
+    <div class="section-divider"></div>
+
+    <!-- System Metrics -->
     <section class="scroll-reveal">
         <div class="container">
             <div class="section-header">
-                <div class="section-badge">Project Stats</div>
-                <h2 class="section-title">By the Numbers</h2>
+                <div class="section-badge">SYSTEM METRICS</div>
+                <h2 class="section-title">Performance Data</h2>
             </div>
 
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-number">26+</div>
-                    <div class="stat-label">CV Operations</div>
+                    <div class="stat-label">Operations</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">8.2K+</div>
-                    <div class="stat-label">Lines of Code</div>
+                    <div class="stat-label">Code Lines</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">&lt;1s</div>
-                    <div class="stat-label">Processing Time</div>
+                    <div class="stat-label">Process Time</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">100%</div>
-                    <div class="stat-label">Test Pass Rate</div>
+                    <div class="stat-label">Test Pass</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Team Section -->
+    <div class="section-divider"></div>
+
+    <!-- System Operators -->
     <section id="team" class="scroll-reveal">
         <div class="container">
             <div class="section-header">
-                <div class="section-badge">Our Team</div>
-                <h2 class="section-title">Meet the Developers</h2>
+                <div class="section-badge">SYSTEM OPERATORS</div>
+                <h2 class="section-title">Development Team</h2>
                 <p class="section-description">TE AIML | Batch A1 | Division A | Academic Year 2026-27</p>
             </div>
 
@@ -971,7 +1584,7 @@
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="team-name">Shreya Sanjay Singh Chauhan</div>
-                    <div class="team-prn">PRN: 240105231010</div>
+                    <div class="team-prn">240105231010</div>
                 </div>
 
                 <div class="team-card">
@@ -979,7 +1592,7 @@
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="team-name">Pranav Bansode</div>
-                    <div class="team-prn">PRN: 240105231033</div>
+                    <div class="team-prn">240105231033</div>
                 </div>
 
                 <div class="team-card">
@@ -987,7 +1600,7 @@
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="team-name">Yash Mali</div>
-                    <div class="team-prn">PRN: 240105231003</div>
+                    <div class="team-prn">240105231003</div>
                 </div>
 
                 <div class="team-card">
@@ -995,20 +1608,22 @@
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="team-name">Nidhi Sugandhi</div>
-                    <div class="team-prn">PRN: 240105231026</div>
+                    <div class="team-prn">240105231026</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Final CTA -->
+    <div class="section-divider"></div>
+
+    <!-- System Initialization -->
     <section class="scroll-reveal">
         <div class="container">
             <div class="cta-section">
-                <h2>Ready to Experience the Power?</h2>
-                <p>Start processing images with professional CV algorithms in seconds</p>
-                <a href="https://computer-vision-studio.streamlit.app" target="_blank" class="btn btn-primary" style="background: white; color: #667eea;">
-                    <i class="fas fa-rocket"></i> Launch Computer Vision Studio
+                <h2>SYSTEM READY FOR INITIALIZATION</h2>
+                <p>Access the neural vision processing interface</p>
+                <a href="https://computer-vision-studio.streamlit.app" target="_blank" class="btn btn-primary">
+                    <span>◉</span> INITIALIZE SYSTEM <i class="fas fa-rocket"></i>
                 </a>
             </div>
         </div>
@@ -1019,16 +1634,16 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <h3>Computer Vision Studio</h3>
-                    <p>Professional AI-powered image processing platform built by TE AIML students.</p>
-                    <p style="color: #667eea; margin-top: 20px;">
-                        <i class="fas fa-graduation-cap"></i> Academic Year 2026-27
+                    <h3>COMPUTER VISION STUDIO</h3>
+                    <p>Advanced AI-powered image processing platform built by TE AIML neural engineering students.</p>
+                    <p style="color: #00E5FF; margin-top: 20px;">
+                        <i class="fas fa-graduation-cap"></i> ACADEMIC YEAR 2026-27
                     </p>
                 </div>
                 <div class="footer-links">
-                    <h4>Project</h4>
+                    <h4>System</h4>
                     <ul>
-                        <li><a href="#about">About</a></li>
+                        <li><a href="#about">Overview</a></li>
                         <li><a href="#features">Features</a></li>
                         <li><a href="#tech">Technology</a></li>
                         <li><a href="#team">Team</a></li>
@@ -1051,14 +1666,49 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Computer Vision Studio. TE AIML | Batch A1 | Division A</p>
-                <p style="margin-top: 10px;">Developed by: Shreya Chauhan, Pranav Bansode, Yash Mali, Nidhi Sugandhi</p>
+                <p>© 2026 COMPUTER VISION STUDIO // TE AIML // BATCH A1 // DIVISION A</p>
+                <p style="margin-top: 10px;">OPERATORS: SHREYA CHAUHAN // PRANAV BANSODE // YASH MALI // NIDHI SUGANDHI</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Scroll Reveal Animation
+        // Binary Rain Generator
+        function createBinaryRain() {
+            const container = document.getElementById('binaryRain');
+            const chars = ['0', '1'];
+            const numChars = 30;
+            
+            for (let i = 0; i < numChars; i++) {
+                const char = document.createElement('div');
+                char.className = 'binary-char';
+                char.textContent = chars[Math.floor(Math.random() * chars.length)];
+                char.style.left = Math.random() * 100 + '%';
+                char.style.animationDelay = Math.random() * 5 + 's';
+                char.style.animationDuration = (10 + Math.random() * 10) + 's';
+                container.appendChild(char);
+            }
+        }
+
+        // Particle System
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const numParticles = 50;
+            
+            for (let i = 0; i < numParticles; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
+                particle.style.setProperty('--ty', (Math.random() - 0.5) * 200 + 'px');
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Scroll Reveal
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -1105,7 +1755,7 @@
             window.requestAnimationFrame(step);
         }
 
-        // Trigger number animation when stats section is visible
+        // Trigger number animation
         const statsObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1114,10 +1764,10 @@
                         if (text.includes('K')) {
                             const num = parseFloat(text) * 1000;
                             stat.dataset.suffix = 'K+';
-                            animateValue(stat, 0, parseFloat(text), 2000);
+                            setTimeout(() => animateValue(stat, 0, parseFloat(text), 2000), index * 200);
                         } else if (text.includes('%')) {
                             stat.dataset.suffix = '%';
-                            animateValue(stat, 0, parseInt(text), 2000);
+                            setTimeout(() => animateValue(stat, 0, parseInt(text), 2000), index * 200);
                         }
                     });
                     statsObserver.unobserve(entry.target);
@@ -1129,6 +1779,15 @@
         if (statsSection) {
             statsObserver.observe(statsSection);
         }
+
+        // Initialize Effects
+        createBinaryRain();
+        createParticles();
+
+        // Preload check
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
     </script>
 </body>
 </html>
