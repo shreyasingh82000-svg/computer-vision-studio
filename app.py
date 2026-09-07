@@ -20,10 +20,10 @@ import image_processing as ip
 
 # Page Configuration
 st.set_page_config(
-    page_title="CV Studio - Shreya Singh Chauhan",
+    page_title="CV Studio - Computer Vision",
     page_icon="🎨",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="expanded"  # Force sidebar to be expanded
 )
 
 # Custom CSS - Cyberpunk AI Theme
@@ -692,16 +692,64 @@ def main():
     
     # Main content
     if st.session_state.original_image is None:
+        # Prominent upload instruction
         st.markdown("""
-            <div class="info-box">
-                <h3>👋 Welcome to Computer Vision Studio!</h3>
-                <p>Please upload an image using the sidebar to begin processing.</p>
-                <p><strong>Supported formats:</strong> JPG, JPEG, PNG, BMP, TIFF</p>
+            <div style='background: linear-gradient(135deg, rgba(0, 229, 255, 0.1), rgba(255, 0, 200, 0.1)); 
+                        border: 2px solid #00E5FF; 
+                        padding: 3rem 2rem; 
+                        text-align: center; 
+                        margin: 2rem 0;
+                        backdrop-filter: blur(12px);'>
+                <div style='font-family: Orbitron, sans-serif; font-size: 2rem; color: #00E5FF; margin-bottom: 1rem; text-shadow: 0 0 20px rgba(0, 229, 255, 0.5);'>
+                    ◉ SYSTEM READY
+                </div>
+                <div style='font-size: 1.2rem; color: #F5F5FF; margin-bottom: 1.5rem;'>
+                    Upload an image to begin neural processing
+                </div>
+                <div style='font-size: 1rem; color: #A7A7BB; margin-bottom: 1rem;'>
+                    <strong style='color: #FF00C8;'>⬅️ LOOK LEFT</strong> - Find the sidebar with <strong style='color: #00E5FF;'>[ INPUT MODULE ]</strong>
+                </div>
+                <div style='font-size: 0.9rem; color: #66667A;'>
+                    Supported: JPG, JPEG, PNG, BMP, TIFF | Max: 200MB
+                </div>
             </div>
         """, unsafe_allow_html=True)
         
+        # Add a file uploader in main area too as backup
+        st.markdown("""
+            <div style='text-align: center; margin: 2rem 0 1rem 0; color: #FF00C8; font-family: Orbitron, sans-serif; letter-spacing: 2px;'>
+                [ QUICK UPLOAD ]
+            </div>
+        """, unsafe_allow_html=True)
+        
+        uploaded_file_main = st.file_uploader(
+            "Or upload directly here",
+            type=['jpg', 'jpeg', 'png', 'bmp', 'tiff'],
+            help="Upload an image to begin processing",
+            key="main_uploader"
+        )
+        
+        if uploaded_file_main is not None:
+            # Read image
+            file_bytes = np.asarray(bytearray(uploaded_file_main.read()), dtype=np.uint8)
+            image = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+            
+            st.session_state.original_image = image.copy()
+            st.session_state.processed_image = image.copy()
+            st.session_state.history = [image.copy()]
+            st.session_state.history_index = 0
+            st.session_state.filename = uploaded_file_main.name
+            st.success(f"✓ Image loaded: {uploaded_file_main.name}")
+            st.rerun()
+        
+        st.markdown("---")
+        
         # Show features
-        st.markdown("###  Features")
+        st.markdown("""
+            <div style='text-align: center; margin: 2rem 0 1rem 0; color: #00E5FF; font-family: Orbitron, sans-serif; letter-spacing: 2px;'>
+                [ AVAILABLE OPERATIONS ]
+            </div>
+        """, unsafe_allow_html=True)
         col1, col2, col3 = st.columns(3)
         
         with col1:
