@@ -1,0 +1,99 @@
+================================================================================
+           COPY-PASTE COMMANDS FOR GITHUB DEPLOYMENT
+================================================================================
+
+IMPORTANT: Replace "YOUR_USERNAME" with your actual GitHub username!
+
+================================================================================
+STEP 1: After creating GitHub repository, run these commands:
+================================================================================
+
+cd "C:\Users\Shreya Singh\Desktop\cv"
+
+git remote add origin https://github.com/YOUR_USERNAME/computer-vision-studio.git
+
+git branch -M main
+
+git push -u origin main
+
+
+================================================================================
+STEP 2: Enter your GitHub credentials when prompted
+================================================================================
+
+Username: [your GitHub username]
+Password: [your GitHub personal access token]
+
+Note: GitHub no longer accepts passwords. You need a Personal Access Token.
+To create one: GitHub → Settings → Developer settings → Personal access tokens
+→ Generate new token → Select "repo" scope → Copy the token
+
+
+================================================================================
+VERIFICATION COMMANDS:
+================================================================================
+
+# Check remote is added correctly:
+git remote -v
+
+# Check current branch:
+git branch
+
+# Check commit history:
+git log --oneline
+
+# Check status:
+git status
+
+
+================================================================================
+COMMON ISSUES & SOLUTIONS:
+================================================================================
+
+Issue 1: "remote origin already exists"
+Solution: git remote remove origin
+Then run: git remote add origin https://github.com/YOUR_USERNAME/computer-vision-studio.git
+
+Issue 2: "Authentication failed"
+Solution: Use Personal Access Token instead of password
+Create token at: https://github.com/settings/tokens
+
+Issue 3: "Permission denied"
+Solution: Make sure you're logged into the correct GitHub account
+Or check if repository name is correct
+
+
+================================================================================
+AFTER SUCCESSFUL PUSH:
+================================================================================
+
+1. Go to: https://github.com/YOUR_USERNAME/computer-vision-studio
+2. Verify all files are visible
+3. Then proceed to Streamlit Cloud deployment
+
+
+================================================================================
+STREAMLIT CLOUD DEPLOYMENT:
+================================================================================
+
+1. Go to: https://share.streamlit.io
+2. Sign in with GitHub
+3. Click "New app"
+4. Repository: YOUR_USERNAME/computer-vision-studio
+5. Branch: main
+6. Main file path: app.py
+7. Click "Deploy!"
+
+
+================================================================================
+YOUR PUBLIC URL WILL BE:
+================================================================================
+
+https://YOUR_USERNAME-computer-vision-studio-app-xxxxx.streamlit.app
+
+(The exact URL will be shown after deployment completes)
+
+
+================================================================================
+READY TO START! Copy these commands and replace YOUR_USERNAME
+================================================================================
