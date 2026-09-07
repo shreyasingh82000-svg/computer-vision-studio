@@ -26,106 +26,422 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for modern UI
+# Custom CSS - Cyberpunk AI Theme
 st.markdown("""
     <style>
-    /* Main theme colors */
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+    
+    /* Cyberpunk Color System */
     :root {
-        --primary: #6C63FF;
-        --secondary: #FF6584;
-        --success: #00C9A7;
-        --warning: #FFB800;
+        --cyber-black: #020207;
+        --cyber-dark: #05050B;
+        --neon-magenta: #FF00C8;
+        --neon-cyan: #00E5FF;
+        --cyber-purple: #7A2CFF;
+        --text-primary: #F5F5FF;
+        --text-secondary: #A7A7BB;
+        --text-muted: #66667A;
     }
     
-    /* Header styling */
+    /* Main Background */
+    .stApp {
+        background: #020207 !important;
+        color: #F5F5FF !important;
+    }
+    
+    /* Animated Background Grid */
+    .stApp::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+        background-size: 50px 50px;
+        z-index: -1;
+        animation: gridMove 20s linear infinite;
+    }
+    
+    @keyframes gridMove {
+        0% { transform: translate(0, 0); }
+        100% { transform: translate(50px, 50px); }
+    }
+    
+    /* Scanlines */
+    .stApp::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: repeating-linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.1),
+            rgba(0, 0, 0, 0.1) 1px,
+            transparent 1px,
+            transparent 2px
+        );
+        pointer-events: none;
+        z-index: 9999;
+        animation: scanline 8s linear infinite;
+    }
+    
+    @keyframes scanline {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(100%); }
+    }
+    
+    /* Header - Futuristic Style */
     .main-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: rgba(5, 5, 11, 0.8);
+        backdrop-filter: blur(12px);
+        border: 2px solid transparent;
+        border-image: linear-gradient(90deg, #00E5FF, #FF00C8) 1;
         padding: 2rem;
-        border-radius: 10px;
         margin-bottom: 2rem;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .main-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 200%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.1), transparent);
+        animation: headerScan 3s linear infinite;
+    }
+    
+    @keyframes headerScan {
+        0% { left: -100%; }
+        100% { left: 100%; }
     }
     
     .main-title {
-        color: white;
+        color: #F5F5FF;
+        font-family: 'Orbitron', sans-serif;
         font-size: 2.5rem;
-        font-weight: bold;
+        font-weight: 900;
         margin-bottom: 0.5rem;
         text-align: center;
+        text-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+        letter-spacing: 2px;
+        position: relative;
+        z-index: 1;
     }
     
     .subtitle {
-        color: rgba(255,255,255,0.9);
-        font-size: 1.2rem;
+        color: #A7A7BB;
+        font-size: 1rem;
         text-align: center;
         margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .subtitle::before {
+        content: '> ';
+        color: #00E5FF;
     }
     
     .student-info {
-        background: white;
+        background: rgba(5, 5, 11, 0.6);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(0, 229, 255, 0.2);
         padding: 1rem;
-        border-radius: 8px;
         margin-top: 1rem;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        position: relative;
+        z-index: 1;
     }
     
     .info-item {
-        color: #2C3E50;
+        color: #A7A7BB;
         margin: 0.3rem 0;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
+        font-family: 'Orbitron', monospace;
     }
     
-    /* Card styling */
-    .stCard {
-        background: white;
-        border-radius: 10px;
-        padding: 1.5rem;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    /* Sidebar - HUD Style */
+    section[data-testid="stSidebar"] {
+        background: rgba(2, 2, 7, 0.95) !important;
+        backdrop-filter: blur(12px) !important;
+        border-right: 1px solid rgba(0, 229, 255, 0.2) !important;
     }
     
-    /* Button styling */
+    section[data-testid="stSidebar"] > div {
+        background: transparent !important;
+    }
+    
+    /* Sidebar Headers */
+    section[data-testid="stSidebar"] h3 {
+        color: #00E5FF !important;
+        font-family: 'Orbitron', sans-serif !important;
+        font-size: 0.9rem !important;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        border-bottom: 1px solid rgba(0, 229, 255, 0.3);
+        padding-bottom: 0.5rem;
+    }
+    
+    section[data-testid="stSidebar"] h3::before {
+        content: '[ ';
+        color: #FF00C8;
+    }
+    
+    section[data-testid="stSidebar"] h3::after {
+        content: ' ]';
+        color: #FF00C8;
+    }
+    
+    /* Buttons - Cyberpunk Style */
     .stButton>button {
-        border-radius: 8px;
-        font-weight: 600;
-        padding: 0.5rem 2rem;
-        transition: all 0.3s ease;
+        background: rgba(5, 5, 11, 0.8) !important;
+        color: #00E5FF !important;
+        border: 1px solid #00E5FF !important;
+        font-family: 'Orbitron', sans-serif !important;
+        font-weight: 600 !important;
+        font-size: 0.85rem !important;
+        padding: 0.5rem 1.5rem !important;
+        transition: all 0.3s ease !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 0 10px rgba(0, 229, 255, 0.2) !important;
     }
     
     .stButton>button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        background: rgba(0, 229, 255, 0.1) !important;
+        box-shadow: 0 0 20px rgba(0, 229, 255, 0.4) !important;
+        transform: translateY(-2px) !important;
+        border-color: #00E5FF !important;
     }
     
-    /* Sidebar styling */
-    .css-1d391kg {
-        background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+    /* Download Button - Magenta Style */
+    .stDownloadButton>button {
+        background: rgba(255, 0, 200, 0.1) !important;
+        color: #FF00C8 !important;
+        border: 1px solid #FF00C8 !important;
+        font-family: 'Orbitron', sans-serif !important;
+        box-shadow: 0 0 10px rgba(255, 0, 200, 0.2) !important;
     }
     
-    /* Info box */
+    .stDownloadButton>button:hover {
+        background: rgba(255, 0, 200, 0.2) !important;
+        box-shadow: 0 0 20px rgba(255, 0, 200, 0.4) !important;
+    }
+    
+    /* File Uploader */
+    .stFileUploader {
+        background: rgba(5, 5, 11, 0.6) !important;
+        border: 1px dashed rgba(0, 229, 255, 0.3) !important;
+        border-radius: 0 !important;
+    }
+    
+    .stFileUploader label {
+        color: #A7A7BB !important;
+        font-family: 'Orbitron', sans-serif !important;
+    }
+    
+    /* Tabs - Neural Interface Style */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 10px;
+        background: rgba(5, 5, 11, 0.6);
+        padding: 10px;
+        border: 1px solid rgba(0, 229, 255, 0.2);
+    }
+    
+    .stTabs [data-baseweb="tab"] {
+        background: transparent !important;
+        color: #A7A7BB !important;
+        border: 1px solid transparent !important;
+        font-family: 'Orbitron', sans-serif !important;
+        font-size: 0.85rem !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 0.5rem 1rem !important;
+    }
+    
+    .stTabs [data-baseweb="tab"]:hover {
+        background: rgba(0, 229, 255, 0.05) !important;
+        border-color: rgba(0, 229, 255, 0.3) !important;
+        color: #00E5FF !important;
+    }
+    
+    .stTabs [aria-selected="true"] {
+        background: rgba(0, 229, 255, 0.1) !important;
+        border-color: #00E5FF !important;
+        color: #00E5FF !important;
+        box-shadow: 0 0 15px rgba(0, 229, 255, 0.3) !important;
+    }
+    
+    /* Sliders - Neon Style */
+    .stSlider > div > div > div {
+        background: rgba(0, 229, 255, 0.2) !important;
+    }
+    
+    .stSlider > div > div > div > div {
+        background: #00E5FF !important;
+        box-shadow: 0 0 10px rgba(0, 229, 255, 0.5) !important;
+    }
+    
+    /* Text Inputs */
+    .stTextInput input {
+        background: rgba(5, 5, 11, 0.8) !important;
+        border: 1px solid rgba(0, 229, 255, 0.3) !important;
+        color: #F5F5FF !important;
+        font-family: 'Orbitron', monospace !important;
+    }
+    
+    .stTextInput input:focus {
+        border-color: #00E5FF !important;
+        box-shadow: 0 0 10px rgba(0, 229, 255, 0.3) !important;
+    }
+    
+    /* Info/Success/Warning boxes */
+    .stAlert {
+        background: rgba(5, 5, 11, 0.8) !important;
+        backdrop-filter: blur(12px) !important;
+        border-left: 3px solid #00E5FF !important;
+        color: #F5F5FF !important;
+    }
+    
+    /* Info box - Cyan */
     .info-box {
-        background: #E8F4FD;
-        border-left: 4px solid #2196F3;
+        background: rgba(0, 229, 255, 0.05);
+        border: 1px solid rgba(0, 229, 255, 0.3);
+        border-left: 3px solid #00E5FF;
         padding: 1rem;
-        border-radius: 4px;
         margin: 1rem 0;
+        backdrop-filter: blur(12px);
     }
     
-    /* Success box */
+    .info-box h3 {
+        color: #00E5FF;
+        font-family: 'Orbitron', sans-serif;
+        margin-bottom: 0.5rem;
+    }
+    
+    .info-box p {
+        color: #A7A7BB;
+    }
+    
+    /* Success box - Magenta */
     .success-box {
-        background: #E8F5E9;
-        border-left: 4px solid #4CAF50;
+        background: rgba(255, 0, 200, 0.05);
+        border: 1px solid rgba(255, 0, 200, 0.3);
+        border-left: 3px solid #FF00C8;
         padding: 1rem;
-        border-radius: 4px;
         margin: 1rem 0;
+        backdrop-filter: blur(12px);
     }
     
-    /* Footer */
-    .footer {
-        text-align: center;
-        padding: 2rem;
-        color: #6c757d;
-        border-top: 1px solid #dee2e6;
-        margin-top: 3rem;
+    /* Column dividers */
+    [data-testid="column"] {
+        border-right: 1px solid rgba(0, 229, 255, 0.1);
+        padding: 1rem !important;
+    }
+    
+    [data-testid="column"]:last-child {
+        border-right: none;
+    }
+    
+    /* Markdown styling */
+    .stMarkdown {
+        color: #A7A7BB !important;
+    }
+    
+    .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
+        color: #F5F5FF !important;
+        font-family: 'Orbitron', sans-serif !important;
+        text-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+    }
+    
+    .stMarkdown strong {
+        color: #00E5FF !important;
+    }
+    
+    /* Captions */
+    .stCaptionContainer {
+        color: #66667A !important;
+        font-family: 'Orbitron', monospace !important;
+        font-size: 0.75rem !important;
+    }
+    
+    /* Expander */
+    .streamlit-expanderHeader {
+        background: rgba(5, 5, 11, 0.6) !important;
+        border: 1px solid rgba(0, 229, 255, 0.2) !important;
+        color: #F5F5FF !important;
+        font-family: 'Orbitron', sans-serif !important;
+    }
+    
+    .streamlit-expanderHeader:hover {
+        border-color: rgba(0, 229, 255, 0.5) !important;
+    }
+    
+    /* Image containers */
+    img {
+        border: 1px solid rgba(0, 229, 255, 0.2);
+        box-shadow: 0 0 20px rgba(0, 229, 255, 0.1);
+    }
+    
+    /* Metric */
+    [data-testid="stMetric"] {
+        background: rgba(5, 5, 11, 0.6);
+        border: 1px solid rgba(0, 229, 255, 0.2);
+        padding: 1rem;
+        backdrop-filter: blur(12px);
+    }
+    
+    [data-testid="stMetricLabel"] {
+        color: #A7A7BB !important;
+        font-family: 'Orbitron', sans-serif !important;
+        text-transform: uppercase;
+        font-size: 0.75rem !important;
+        letter-spacing: 1px;
+    }
+    
+    [data-testid="stMetricValue"] {
+        color: #00E5FF !important;
+        font-family: 'Orbitron', sans-serif !important;
+        text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+    }
+    
+    /* Hide Streamlit branding */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: rgba(5, 5, 11, 0.5);
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #00E5FF, #FF00C8);
+        border-radius: 5px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #FF00C8, #00E5FF);
+    }
+    
+    /* Selection */
+    ::selection {
+        background: rgba(0, 229, 255, 0.3);
+        color: #F5F5FF;
     }
     </style>
 """, unsafe_allow_html=True)
